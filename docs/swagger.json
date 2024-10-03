@@ -1,0 +1,2000 @@
+{
+    "swagger": "2.0",
+    "securityDefinitions": {
+        "Bearer": {
+          "type": "apiKey",
+          "name": "Authorization",
+          "in": "header",
+          "description": "Enter your bearer token in the format **Bearer <token>**"
+        }
+      },
+      "security": [{ "Bearer": [] }],
+    "info": {
+        "title": "Inventory Management & Employee Management APIs",
+        "description": "API documentation for Inventory System",
+        "version": "1.0.0"
+    },
+    "host": "localhost:5000",
+    "basePath": "",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    
+    "paths": {
+        "api/Inventory/users/signup": {
+            "post": {
+                "summary": "Create an account",
+                "description": "To make an appointment first sign up",
+                "tags": [
+                    "User-Auth"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "signUp object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": " user created"
+                    }
+                }
+            }
+        },
+
+        "api/Inventory/users/login": {
+            "post": {
+                "summary": "Login into your account",
+                "description": "To do something first login",
+                "tags": [
+                    "User-Auth"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "signIn object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": " user logged in"
+                    }
+                }
+            }
+        },
+
+        "api/Inventory/users/verify-otp": {
+            "post": {
+                "summary": "verify your otp",
+                "description": "verify your account",
+                "tags": [
+                    "User-Auth"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "verify object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account verified"
+                    }
+                }
+            }
+        },
+        "api/Inventory/users/forgot-Password": {
+            "post": {
+                "summary": "incase you forgot your password",
+                "description": "if you forgot your password",
+                "tags": [
+                    "User-Auth"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "forgotPassword object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account click on forgotPassword"
+                    }
+                }
+            }
+        },
+        "api/Inventory/users/reset-Password": {
+            "post": {
+                "summary": "reset your password",
+                "description": "set another password incase you forgot your password",
+                "tags": [
+                    "User-Auth"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "verify object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account reset"
+                    }
+                }
+            }
+        },
+        "api/Inventory/users/update-user/{id}": {
+            "put": {
+                "summary": "updating a user",
+                "description": "updating the users",
+                "tags": [
+                    "User-Auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the user to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "Updated user object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieved"
+                    },
+                    "404": {
+                        "description": "user not found"
+                    }
+                }
+            }
+        },
+        "api/Inventory/users/delete-user/{id}": {
+            "delete": {
+                "summary": "Delete a user by ID",
+                "description": "Delete a user by ID",
+                "tags": [
+                    "User-Auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the user to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "user deleted"
+                    },
+                    "404": {
+                        "description": "user not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/items/upload": {
+            "post": {
+                "summary": "Create a new image",
+                "description": "add an image",
+                "tags": [
+                    "Items"
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                  ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "name",
+                       "type":"String",
+                        "required": false,
+                        "description": "item object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "serial_number",
+                       "type":"String",
+                        "required": false,
+                        "description": "item object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "category",
+                       "type":"String",
+                        "required": false,
+                        "description": "item object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "date_of_entry",
+                       "type": "String",
+                       "format": "yyyy-MM-dd",
+                        "required": false,
+                        "description": "item object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "brand",
+                       "type":"String",
+                        "required": false,
+                        "description": "item object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "weight",
+                       "type":"String",
+                        "required": false,
+                        "description": "item object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "warranty_expiration_date",
+                       "type":"String",
+                       "format": "yyyy-MM-dd",
+                        "required": false,
+                        "description": "item object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "image",
+                       "type":"file",
+                       "description": "item object",
+                        "public_id": {
+                          "type": "String"
+                        },
+                        "asset_id":{
+                          "type": "String"
+                        },
+                        "url":{
+                          "type": "String"
+                        }
+                      },
+                    {
+                        "in": "formData",
+                        "name": "location",
+                       "type":"String",
+                        "required": false,
+                        "description": "item object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "status",
+                       "type":"String",
+                        "required": false,
+                        "description": "item object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "color",
+                       "type":"String",
+                       "required": false,
+                        "description": "item object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "disposal_date",
+                       "type":"String",
+                       "format": "yyyy-MM-dd",
+                        "required": false,
+                        "description": "item object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "additional_specifications",
+                       "type":"String",
+                        "required": false,
+                        "description": "item object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": " item created  successfully"
+                    },
+                    "401":{
+                        "description":"Item not created"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/items/getAll": {
+            "get": {
+                "summary": "Find all items",
+                "description": "Find all items",
+                "tags": [
+                    "Items"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieved"
+                    },
+                    "404": {
+                        "description": "items not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/items/getById/{id}": {
+            "get": {
+                "summary": "get an item by ID",
+                "description": "get a single item by ID",
+                "tags": [
+                    "Items"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the items to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "single item got it!"
+                    },
+                    "404": {
+                        "description": "item not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/items/getByCategory/{category}": {
+            "get": {
+                "summary": "get a category by ID",
+                "description": "get a single category by ID",
+                "tags": [
+                    "Items"
+                ],
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "ID of the category to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "single category got it!"
+                    },
+                    "404": {
+                        "description": "category not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/items/getByStatus/{status}": {
+            "get": {
+                "summary": "get an item by status",
+                "description": "get a single item by status",
+                "tags": [
+                    "Items"
+                ],
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "path",
+                        "description": "status of the items to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "single status got it!"
+                    },
+                    "404": {
+                        "description": "status not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/items/getByName/{name}": {
+            "get": {
+                "summary": "get an item by name",
+                "description": "get a single item by name",
+                "tags": [
+                    "Items"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "name of the items to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "single name got it!"
+                    },
+                    "404": {
+                        "description": "name not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/items/updateItem/{id}": {
+        "put": {
+            "summary": "update items",
+            "description": "updating the items",
+            "tags": [
+                "Items"
+            ],
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of the item to update",
+                    "required": false,
+                    "type": "String"
+                },
+                {
+                    "in": "body",
+                    "name": "body",
+                    "schema": {
+                        "$ref": "#/definitions"
+                    },
+                    "required": true,
+                    "description": "Updated item object"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Successful retrieved"
+                },
+                "404": {
+                    "description": "item not found"
+                }
+            }
+        }
+    },
+    "/api/Inventory/items/deleteItem/{id}": {
+            "delete": {
+                "summary": "Delete an item by ID",
+                "description": "Delete an item by ID",
+                "tags": [
+                    "Items"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the item to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "item deleted"
+                    },
+                    "404": {
+                        "description": "item not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/requests/createReq": {
+        "post": {
+            "summary": "Create a new requests",
+            "description": "Create a new requests",
+            "tags": [
+                "Requests"
+            ],
+            "parameters": [
+                {
+                    "in": "body",
+                    "name": "body",
+                    "schema": {
+                        "$ref": "#/definitions"
+                    },
+                    "required": true,
+                    "description": "request object"
+                }
+            ],
+            "responses": {
+                "201": {
+                    "description": "request created"
+                }
+            }
+        }
+},
+  
+        "/api/Inventory/requests/sendByEmail": {
+            "post": {
+                "summary": "send an email to the inventory system",
+                "description": "Create an email",
+                "tags": [
+                    "Requests"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "request object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "request created"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/requests/getAllReq": {
+            "get": {
+                "summary": "Find all requests",
+                "description": "Find all requests",
+                "tags": [
+                    "Requests"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieved"
+                    },
+                    "404": {
+                        "description": "requests not found"
+                    }
+                }
+            }
+        },
+       "/api/Inventory/requests/getByIdReq/{id}": {
+            "get": {
+                "summary": "get a request by ID",
+                "description": "get a single request by ID",
+                "tags": [ 
+                    "Requests"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the requests to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "single request got it!"
+                    },
+                    "404": {
+                        "description": "request not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/requests/getByNameReq/{item_name}": {
+            "get": {
+                "summary": "get a request by Name",
+                "description": "get a single request by Name",
+                "tags": [ 
+                    "Requests"
+                ],
+                "parameters": [
+                    {
+                        "name": "item_name",
+                        "in": "path",
+                        "description": "name of the requests to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "single request got it!"
+                    },
+                    "404": {
+                        "description": "request not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/requests/getByCategoryReq/{item_category}": {
+            "get": {
+                "summary": "get a request by Category",
+                "description": "get a single request by Category",
+                "tags": [ 
+                    "Requests"
+                ],
+                "parameters": [
+                    {
+                        "name": "item_category",
+                        "in": "path",
+                        "description": "Category of the requests to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "single category found!"
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/requests/updateReq/{id}": {
+            "put": {
+                "summary": "update requests",
+                "description": "updating the requests",
+                "tags": [
+                    "Requests"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the request to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "Updated request object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieved"
+                    },
+                    "404": {
+                        "description": "request not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/requests/deleteReq/{id}": {
+            "delete": {
+                "summary": "Delete a request by ID",
+                "description": "Delete a request by ID",
+                "tags": [
+                    "Requests"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the request to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "request deleted"
+                    },
+                    "404": {
+                        "description": "request not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/approvals/CreateApp": {
+            "post": {
+                "summary": "Create a new approval",
+                "description": "Create an approval",
+                "tags": [
+                    "Approvals"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "approval object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "approval created"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/approvals/readApp/{id}": {
+            "get": {
+                "summary": "get to read the approvals by ID",
+                "description": "read a single approval by ID",
+                "tags": [ 
+                    "Approvals"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the approval to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Approval has been read successfully"
+                    },
+                    "404": {
+                        "description": "approval not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/approvals/updateApp/{id}": {
+            "put": {
+                "summary": "update approvals",
+                "description": "updating the approvals",
+                "tags": [
+                    "Approvals"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the approval to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "Updated approval object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieved"
+                    },
+                    "404": {
+                        "description": "approval not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/approvals/deleteApp/{id}": {
+            "delete": {
+                "summary": "Delete an approval by ID",
+                "description": "Delete an approval by ID",
+                "tags": [
+                    "Approvals"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the approval to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "approval deleted"
+                    },
+                    "404": {
+                        "description": "approval  not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/payment/payments": {
+            "post": {
+                "summary": "Create a payment",
+                "description": "add a proof payment",
+                "tags": [
+                    "Payments"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "finance_id",
+                       "type":"string",
+                        "required": true,
+                        "description": "payment object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "request_id",
+                       "type":"string",
+                        "required": true,
+                        "description": "payment object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "amount",
+                       "type":"string",
+                        "required": true,
+                        "description": "payment object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "proof_of_payment",
+                       "type":"file",
+                        "required": true,
+                        "description": "payment object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "payment_method",
+                       "type":"String",
+                        "required": false,
+                        "description": "payment object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": " proof of payment created  successfully"
+                    },
+                    "401":{
+                        "description":"payment not created"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/payment/findPaymentId/{id}": {
+            "get": {
+                "summary": "get a payment by ID",
+                "description": "get a single payment by ID",
+                "tags": [ 
+                    "Payments"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the payment to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "single payment got it!"
+                    },
+                    "404": {
+                        "description": "payment not found"
+                    }
+                }
+            }
+        },
+        "/api/Inventory/finance/{id}": {
+            "get": {
+                "summary": "get a transaction by ID",
+                "description": "get a single transaction by ID",
+                "tags": [ 
+                    "Finance"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the transaction to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "single transaction got it!"
+                    },
+                    "404": {
+                        "description": " transaction not found"
+                    }
+                }
+            }
+        },
+
+        "/api/Inventory/finance/initiate": {
+            "post": {
+                "summary": "Create a initiation ",
+                "description": "Create a initiation",
+                "tags": [
+                    "Finance"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "finance object"
+                    }
+                ],
+
+                "responses": {
+                    "201": {
+                        "description": "finance created"
+                    }
+                }
+            }
+        },
+        "/api/Employee/Emply-users/signup": {
+            "post": {
+              "summary": "Create a new user account",
+              "tags": ["Employee-Auth"],
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/definitions"
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "201": {
+                  "description": "User created successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/definitions"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request"
+                }
+              }
+            }
+          },
+          "/api/Employee/Emply-users/signIn": {
+      "post": {
+        "summary": "Sign in a user",
+        "tags": ["Employee-Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User signed in successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email or password"
+          }
+        }
+      }
+    },
+    "/api/Employee/Emply-users/verify": {
+      "post": {
+        "summary": "Validate OTP for user account",
+        "tags": ["Employee-Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User verified successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid OTP"
+          }
+        }
+      }
+    },
+    "/api/Employee/Emply-users/forgotPassword": {
+      "post": {
+        "summary": "Send password reset link",
+        "tags": ["Employee-Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset link sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email address"
+          }
+        }
+      }
+    },
+    "/api/Employee/Emply-users/resetPassword": {
+      "post": {
+        "summary": "Reset user password",
+        "tags": ["Employee-Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset successfully",
+            "content": {
+              "application/json": {
+                "$ref": "#/definitions"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token or expired"
+          }
+        }
+      }
+    },
+    "/api/Employee/Emply-users/delete/{id}": {
+      "delete": {
+        "summary": "Delete a user account",
+        "tags": ["Employee-Auth"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the user to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted successfully",
+            "content": {
+              "application/json": {
+                "$ref": "#/definitions"
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/api/Employee/tokens/addToken": {
+      "post": {
+        "summary": "Add a token",
+        "tags": ["Token"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Token added successfully",
+            "content": {
+              "application/json": {
+                "$ref": "#/definitions"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
+    "/api/Employee/tokens/delete/{id}": {
+      "delete": {
+        "summary": "Delete a token",
+        "tags": ["Token"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the token to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token deleted successfully",
+            "content": {
+              "application/json": {
+                "$ref": "#/definitions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Employee/employees/addEmployee": {
+        "post": {
+            "summary": "Create a new employee",
+            "description": "Create a new employee",
+            "tags": [
+                "Employee"
+            ],
+            "parameters": [
+                {
+                    "in": "body",
+                    "name": "body",
+                    "schema": {
+                        "$ref": "#/definitions"
+                    },
+                    "required": true,
+                    "description": "employee object"
+                }
+            ],
+            "responses": {
+                "201": {
+                    "description": "employee created"
+                }
+            }
+        }
+    },
+      "/api/Employee/employees/getEmployee/{id}": {
+      "get": {
+        "summary": "Get employee by ID",
+        "tags": ["Employee"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Employee found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Employee not found"
+          }
+        }
+      }
+    },
+    "/api/Employee/employees/getAllEmployees": {
+      "get": {
+        "summary": "Get all employees",
+        "tags": ["Employee"],
+        "responses": {
+          "200": {
+            "description": "List of all employees",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No employees found"
+          }
+        }
+      }
+    },
+    "/api/Employee/employees/updateEmployee/{id}": {
+      "put": {
+        "summary": "Update an employee",
+        "tags": ["Employee"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Employee updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Employee not found"
+          }
+        }
+      }
+    },
+    "/api/Employee/employees/getEmployeeByEmail/{email}": {
+      "get": {
+        "summary": "Get employee by email",
+        "tags": ["Employee"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee email"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Employee found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Employee not found"
+          }
+        }
+      }
+  },
+  "/api/Employee/employees/deleteEmployee/{id}": {
+      "delete": {
+        "summary": "Delete an employee",
+        "tags": ["Employee"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Employee deleted successfully",
+            "content": {
+              "application/json": {
+                "$ref": "#/definitions"
+              }
+            }
+        }
+    }
+}
+  },
+   "/api/Employee/leaveRequests/upload": {
+    "post": {
+        "summary": "Create a new image",
+        "description": "add an image",
+        "tags": [
+            "Leave Requests"
+        ],
+        "consumes": [
+            "multipart/form-data"
+          ],
+        "parameters": [
+            {
+                "in": "formData",
+                "name": "employeeId",
+               "type":"mongoose.Schema.Types.ObjectId",
+               "ref": "employee",
+                "required": false,
+                "description": "leave object"
+            },
+            {
+                "in": "formData",
+                "name": "names",
+               "type":"String",
+                "required": false,
+                "description": "leave object"
+            }, {
+                "in": "formData",
+                "name": "category",
+               "type":"String",
+                "required": false,
+                "description": "leave object"
+            },
+            {
+                "in": "formData",
+                "name": "type",
+               "type":"String",
+                "required": false,
+                "description": "leave object"
+            },
+            {
+                "in": "formData",
+                "name": "startDate",
+               "type": "Date",
+               "format": "yyyy-MM-dd",
+                "required": false,
+                "description": "leave object"
+            },    {
+                "in": "formData",
+                "name": "endDate",
+               "type": "Date",
+               "format": "yyyy-MM-dd",
+                "required": false,
+                "description": "leave object"
+            },
+            {
+                "in": "formData",
+                "name": "date",
+               "type": "Date",
+               "format": "yyyy-MM-dd",
+                "required": false,
+                "description": "leave object"
+            },
+            {
+                "in": "formData",
+                "name": "reason",
+               "type": "String",
+                "required": false,
+                "description": "leave object"
+            },
+            {
+                "in": "formData",
+                "name": "status",
+               "type":"String",
+                "required": false,
+                "description": "leave object"
+            },
+            {
+                "in": "formData",
+                "name": "file_document",
+               "type":"file",
+               "description": "leave object",
+                "public_id": {
+                  "type": "String"
+                },
+                "asset_id":{
+                  "type": "String"
+                },
+                "url":{
+                  "type": "String"
+                }
+              },
+              {
+                "in": "formData",
+                "name": "email",
+                "type":"String",
+                "required": false,
+                "unique": true,
+                "description": "leave object"
+            },
+            {
+                "in": "formData",
+                "name": "createdAt",
+                "type":"Date",
+                "required": false,
+                "default": "Date.now",
+                "description": "leave object"
+            }
+        ],
+     "responses": {
+          "201": {
+            "description": "Leave request created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions"
+                },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+    }
+}
+     }
+    }
+},
+ "/api/Employee/leaveRequests/getAllLeaves": {
+    "get": {
+        "summary": "Find all requests",
+        "description": "Find all requests",
+        "tags": [
+            "Leave Requests"
+        ],
+        "responses": {
+            "200": {
+                "description": "Successful retrieved"
+            },
+            "404": {
+                "description": "requests not found"
+            }
+        }
+    }
+},
+ "/api/Employee/leaveRequests/getLeavesById/{id}": {
+    "get": {
+        "summary": "get a request by ID",
+        "description": "get a single request by ID",
+        "tags": [ 
+            "Leave Requests"
+        ],
+        "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "ID of the requests to get",
+                "required": true,
+                "type": "string"
+            }
+        ],
+        "responses": {
+            "201": {
+                "description": "single request got it!"
+            },
+            "404": {
+                "description": "request not found"
+            }
+        }
+    }
+},
+    "/api/Employee/leaveRequests/updateLeaves/{id}": {
+      "put": {
+                "summary": "update leaves",
+                "description": "updating the leaves",
+                "tags": [
+                    "Leave Requests"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the request to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "Updated request object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieved"
+                    },
+                    "404": {
+                        "description": "request not found"
+                    }
+                }
+            }
+        },
+ "/api/Employee/leaveRequests/deleteLeaves/{id}": {
+    "delete": {
+        "summary": "Delete a leave by ID",
+        "description": "Delete a leave by ID",
+        "tags": [
+            "Leave Requests"
+        ],
+        "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "ID of the leave to delete",
+                "required": true,
+                "type": "string"
+            }
+        ],
+        "responses": {
+            "204": {
+                "description": "leave request deleted"
+            },
+            "404": {
+                "description": "leave request not found"
+            }
+        }
+    }
+},
+
+  "/api/Employee/leaveRequests/sendByEmail": {
+    "post": {
+        "summary": "send an email to the Employee system",
+        "description": "Create an email",
+        "tags": [
+            "Leave Requests"
+        ],
+        "parameters": [
+            {
+                "in": "body",
+                "name": "body",
+                "schema": {
+                    "$ref": "#/definitions"
+                },
+                "required": true,
+                "description": "request object"
+            }
+        ],
+        "responses": {
+            "201": {
+                "description": "request created"
+            }
+        }
+    }
+}
+    },
+ "definitions": {
+        "components": {
+            "securitySchemes": {
+              "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+              }
+            },
+            "schemas": {
+          "User-Auth": {
+            "name": {
+                "type": "String",
+                "required":true
+            },
+            "email":{
+                "type": "String",
+                "required":true
+            },
+            "password":{
+                "type": "String",
+                "required":true
+            },
+            "role":{
+                "type": "String",
+                "required":true
+            }
+        },
+        "required": [
+                "name",
+                "email",
+                "password",
+                "role"
+            ]
+        },
+        "Items": {
+            "type": "object",
+            "properties": {
+             "name": {
+                 "type": "String",
+                 "required": false
+                },
+             "serial_number": {
+                "type": "String",
+                "required": false
+            },
+            "category": {
+                "type": "String",
+                "required": false
+            },
+            "date_of_entry": {
+                "type": "Date",
+                "required": false
+            },
+            "brand": {
+                "type": "String",
+                "required": false
+            },
+            "weight": {
+                "type": "String",
+                "required": false
+            },
+            "warranty_expiration_date": {
+                "type": "Date",
+                "required": false
+            },
+            "image": {
+                "url":{
+                 "type": "String"
+                }
+             },
+             "location": {
+                "type": "String",
+                "required": false
+            },
+            "status": {
+                "type": "String",
+                "required": false
+            },
+            "color": {
+                "type": "String",
+                "required": false
+            },
+            "disposal_date": {
+                "type": "Date",
+                "required": false
+            },
+            "additional_specifications": {
+                "type": "String",
+                "required": false
+              }
+            },
+              "required": [
+                "name",
+                "serial_number",
+                "category",
+                "date_of_entry",
+                "brand",
+                "weight",
+                "warranty_expiration_date",
+                "image",
+                "location",
+                "status",
+                "color",
+                "disposal_date",
+                "additional_specifications"
+            ]
+        },
+       "Payments": {
+            "type": "object",
+            "properties": {
+                "finance_id":{
+                    "type":"mongoose.Schema.Types.ObjectId",
+                    "ref": "finance",
+                    "required": true
+                 },  
+                 "request_id": {
+                    "type": "mongoose.Schema.Types.ObjectId",
+                    "ref": "Request",
+                    "required": true
+                },
+                "amount": {
+                    "type": "Number",
+                    "required": true
+                },
+                "payment_date":{
+                    "type": "Date",
+                    "default": "Date.now"
+                },
+              "proof_of_payment": {
+                "url":{
+                 "type": "String"
+                }
+             },
+             "payment_method": {
+                "type": "String",
+                "required": false
+             }
+            },
+        "required": [
+          "finance_id",
+          "request_id",
+          "amount",
+          "payment_date",
+          "proof_of_payment",
+          "payment_method"
+      ]
+  },
+  "Approvals": {
+            "type": "object",
+            "properties": {
+                "request_id": {
+                    "type": "Schema.Types.ObjectId",
+                    "ref": "request",
+                    "required": true
+                },  
+                "approved_by": {
+                    "type": "Schema.Types.ObjectId",
+                    "ref": "user",
+                    "required": true
+                },
+                "approval_date": {
+                    "type": "Date",
+                    "required": true
+                },
+                "status": {
+                    "type": "String",
+                    "required": true
+                }
+        },
+        "required": [
+            "request_id",
+            "approved_by",
+            "approval_date",
+            "unit_price",
+            "total_price",
+            "status"
+        ]
+    },
+    "Requests": {
+            "type": "object",
+            "properties": {
+                "requestedBy":{
+                    "type": "Schema.Types.ObjectId",
+                    "ref": "User",
+                    "required": true
+                },
+                "itemDescription":{
+                    "type": "String",
+                    "required": true
+                },
+                "itemCategory":{
+                    "type": "String",
+                    "required": true
+                },
+                "quantity": {
+                    "type": "Number",
+                    "required": true
+                },
+                "unitPrice":{
+                    "type": "Number",
+                    "required": true
+                },
+                "totalPrice":{
+                    "type": "Number",
+                    "required": true
+                },
+                "status":{
+                    "type": "String",
+                    "required": true
+                },
+                "requestDate": {
+                    "type": "Date",
+                    "default": "Date.now"
+                },
+                "approvedBy": {
+                    "type": "Schema.Types.ObjectId",
+                    "ref": "User",
+                    "required": true
+                },
+                "comments": {
+                    "type": "String",
+                    "required": true
+                }
+    },
+    "required": [
+        "requestedBy",
+        "itemDescription",
+        "itemCategory",
+        "quantity",
+        "unitPrice",
+        "totalPrice",
+        "status",
+        "requestDate",
+        "approvedBy",
+        "comments"
+    ]
+},
+"Finance": {
+    "type": "object",
+    "properties": {
+        "requestId": {
+            "type": "mongoose.Schema.Types.ObjectId", 
+            "required": true,
+            "ref": "Request" 
+        },
+        "amount": {
+            "type": "String",
+            "required": true
+        },
+        "date": {
+            "type": "Date",
+            "default": "Date.now"
+        },
+        "comment": {
+            "type": "String"
+        }
+     },
+     "required": [
+        "requestId",
+        "amount",
+        "date",
+        "comment"
+                ]
+             },
+     "Leave Requests": {
+            "type": "object",
+            "properties": {
+             "employeeId": {
+                 "type": "mongoose.Schema.Types.ObjectId",
+                "ref": "employee",
+                 "required": false
+                },
+             "names": {
+                "type": "String",
+                "required": false
+            },
+            "category": {
+                "type": "String",
+                "required": false,
+                "enum": "['leave', 'permission']"
+            },
+            "type": {
+                "type": "String",
+                "required": false
+            },
+            "startDate": {
+                "type": "Date",
+                "required": false
+            },
+            "endDate": {
+                "type": "Date",
+                "required": false
+            },
+            "date": {
+                "type": "Date",
+                "required": false
+            },
+            "reason": {
+                "type": "String",
+                "required": false
+            },
+            "status": {
+                "type": "string",
+                "enum": "['pending', 'approved', 'denied']",
+                "required": false,
+                "default": "pending"
+            },
+            "file_document": {
+                "url":{
+                 "type": "String"
+                }
+             },
+             "email": {
+                "type": "String",
+                "required": false,
+                "unique": true
+            },
+            "createdAt": {
+                "type": "Date",
+                "required": false
+            }
+            },
+              "required": [
+                "employeeId",
+                "names",
+                "category",
+                "type",
+                "startDate",
+                "endDate",
+                "date",
+                "reason",
+                "status",
+                "file_document",
+                "email",
+                "createdAt"
+            ]
+          }
+        }
+    }
+}
+
+      
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
