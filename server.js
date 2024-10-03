@@ -60,9 +60,9 @@ const connectDB = async () => {
 connectDB();
 
 // Serve static files or a home route
-app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/client-index.html");
-});
+// app.get("/", (req, res) => {
+//     res.sendFile(__dirname + "/client-index.html");
+// });
 
 
 // Error handling middleware
